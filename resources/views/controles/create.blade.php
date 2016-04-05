@@ -6,6 +6,43 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
+                <div class="panel-heading">Controles Anteriores</div>
+                <div class="panel-body">
+                    <?php $loscontroles = App\Control::getControles($id_paciente);?>
+                    <div class="table-responsive">
+                    <table id="listado_controles" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>   
+                                <th class="text-center">#</th>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Control</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size:13px;">
+                            @foreach($loscontroles[1] as $control)
+                                <tr data-id="{{$control -> id_control}}">
+                                    <td>
+                                        {{$control -> id_control}}
+                                    </td>
+                                    <td>
+                                        {{$control -> fecha_control}}
+                                    </td>
+                                    <td>
+                                        {{$control -> control}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
                 <div class="panel-heading">Nuevo Control</div>
                 <div class="panel-body">
                 	<form action="{{ url('/controles/store') }}" method="POST" role="form" id="form-alta-control">
