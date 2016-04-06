@@ -72,6 +72,9 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/controles/create/{fk_id_paciente}',['uses' => 'ControlController@create', 'middleware' => 'auth']);
 	Route::post('/controles/store',['uses' => 'ControlController@store', 'middleware' => 'auth']);
 	Route::get('/controles/list/{fk_id_paciente}',['uses' => 'ControlController@index', 'middleware' => 'auth']);
+	Route::get('/controles/edit/{id}',['uses' => 'ControlController@edit', 'middleware' => 'auth']);
+	Route::post('/controles/update',['uses' => 'ControlController@update', 'middleware' => 'auth']);
+	Route::post('/controles/destroy/{id}',['uses' => 'PacienteController@destroy', 'middleware' => 'auth']);
 });
 
 

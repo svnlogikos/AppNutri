@@ -34,6 +34,11 @@ class Control extends Model
 
     	return $Datos;
     }
+	public static function getDetalleControl($Id)
+	{
+    	$detalleControl = \DB::table('control')->where('id_control','=',$Id)->get(array('id_control','fk_id_paciente','fecha_control','control'));
+    	return $detalleControl;
+    }
 	/*
     public static function getDetallePaciente($elId){
     	$detallePaciente = \DB::table('paciente')->where('id','=',$elId)->get(array('id','obra_social','paciente_desde','nombre_apellido','edad','domicilio','telefono','motivo_consulta','actividad_laboral','horario_trabajo','grupo_familiar','patologias',

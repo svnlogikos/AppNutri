@@ -130,12 +130,73 @@ jQuery(document).ready(function($){
       });;
 });
 
+jQuery(document).ready(function($){
+       $('#edita_control').click(function(event) {
+         event.preventDefault();
+         
+        //alert('anduvo');
+		var datos = $('#form-edit-control').serialize();
+        var action = $('#form-edit-control').attr('action');
+        $.ajax({
+          url: action,
+          type: 'POST',
+          data: datos,
+          error: function(e) {
+                  alert('Error' + e.toString());
+                    
+                },
+          beforeSend: function () {
+                  $("#mensajes_ajax").html("<img class='img-responsive center-block' style='margin: 0 auto;' src='http://www.silviamendoza.com.ar/AppNutri/public/img/gif-load.gif'>");
+                },
+          success:  function (response) {
+                 $("#mensajes_ajax").html(response);
+                        
+                }
+        })
+        //Ubico el foco en este div
+       $('html, body').animate({
+        scrollTop: $("#mensajes_ajax").offset().top
+       }, 1000);
+        
+      });;
+});
+
 jQuery(document).on('click',".btn-eliminar",function(event)
 {
     event.preventDefault();
     //alert('anduvo');
     var id_a_eliminar = $(this).parents('tr').data('id');
     var formulario = $('#form-delete-paciente');
+    var la_url = formulario.attr('action')+'/'+id_a_eliminar;
+
+    $.ajax({
+      url: la_url,
+      type: 'POST',
+      data: formulario.serialize(),
+      error: function(e) {
+                  alert('Error' + e.toString());
+                    
+                },
+      beforeSend: function () {
+                  
+                  $("#mensajes_ajax").html("<img class='img-responsive center-block' style='margin: 0 auto;' src='http://www.silviamendoza.com.ar/AppNutri/public/img/gif-load.gif'>");
+                },
+      success:  function (response) {
+                 $("#mensajes_ajax").html(response);
+                 
+                }
+    })
+
+    $(this).parents('tr').fadeOut('slow');  
+  
+});
+
+jQuery(document).on('click',".btn-eliminar_control",function(event)
+{
+    event.preventDefault();
+    //alert('anduvo');
+    var id_a_eliminar = $(this).parents('tr').data('id_control');
+    var formulario = $('#form-delete-control');
     var la_url = formulario.attr('action')+'/'+id_a_eliminar;
 
     $.ajax({

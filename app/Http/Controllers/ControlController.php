@@ -97,7 +97,9 @@ class ControlController extends Controller
      */
     public function edit($id)
     {
-        //
+        $detalle = Control::getDetalleControl($id);
+		//print_r($detalle);
+        return \View::make('controles.edit', array('control_edit'=>$detalle));
     }
 
     /**
@@ -107,9 +109,55 @@ class ControlController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if($request -> ajax())
+		{
+			//print_r($request -> all());
+			$datos_control = $request->all();
+			
+			//defino las reglas de validación
+            $reglas = array
+			(
+				'fecha_control' => array('required'),
+				'control' => array('required'),
+            );
+			
+			//Valido los datos de entrada
+            $validator = \Validator::make($datos_control, $reglas);
+			
+			if ($validator->fails()) 
+			{
+
+                $messages = $validator->messages();
+                echo '<div class="alert alert-danger" role="alert">';
+
+                //Imprimo los mensajes de error
+                foreach ($messages->all() as $error) {
+                    echo $error."<br>";
+                }
+
+                echo '</div>';
+
+            }
+            else 
+			{	//echo $datos_control['id_control'];
+				//print_r($datos_control);
+				$control = Control::find($datos_control['id_control']);
+					
+				$control -> fecha_control = $datos_control['fecha_control'];
+				$control -> control = $datos_control['control'];
+
+				$ctrl = $control -> save();
+								
+				if($ctrl)
+				{	echo "actualizado!";
+					//echo '<div class="alert alert-success" role="alert">El control del paciente se actualizó correctamente.<a href="'.url('/').'/controles/edit/'.$datos_control['id_control'].'">Regresar al detalle del control.</a></div>';
+				}
+				//$paciente_generado = Paciente::create($datos_paciente);
+        
+            }
+		}
     }
 
     /**
@@ -120,6 +168,7 @@ class ControlController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Control::destroy($id);
+        echo '<div class="alert alert-success" role="alert">El control se eliminó correctamente.</div>';
     }
 }
