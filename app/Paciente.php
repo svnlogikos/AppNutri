@@ -16,7 +16,7 @@ class Paciente extends Model
 	{
     	$Pacientes = \DB::table('paciente')
                                             ->orderBy('id','desc')
-                                            ->take(30)
+                                            ->take(50)
                                             ->get(array('id','obra_social','nombre_apellido'));
 
     	return $Pacientes;
