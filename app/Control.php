@@ -9,6 +9,7 @@ class Control extends Model
 {
 	protected $table = 'control';
 	protected $fillable = array('fk_id_paciente','fecha_control','control');
+    protected  $primaryKey = 'id_control';
 	
 	public static function existeControl($id_paciente)
 	{
