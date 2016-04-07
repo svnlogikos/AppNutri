@@ -21,7 +21,7 @@
 							</thead>
 							<tbody style="font-size:13px;">
 								@foreach($listado_controles[1] as $control)
-									<tr data-id="{{$control -> id_control}}">
+									<tr data-id_control="{{$control -> id_control}}">
 										<td>
 											{{$control -> id_control}}
 										</td>
@@ -51,4 +51,5 @@
         </form>
     </div>
 </div>
+<script src="{{ url('/js') }}/paciente.js" type="text/javascript"></script>
 @endsection
